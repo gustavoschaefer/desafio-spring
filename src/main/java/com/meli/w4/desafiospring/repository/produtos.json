@@ -1,0 +1,33 @@
+[ {
+  "productId" : 1,
+  "category" : "a",
+  "brand" : "b",
+  "prestige" : "d",
+  "price" : 10.00,
+  "quantity" : 1,
+  "freeShipping" : true
+}, {
+  "productId" : 1,
+  "category" : "a",
+  "brand" : "b",
+  "prestige" : "d",
+  "price" : 10.00,
+  "quantity" : 1,
+  "freeShipping" : true
+}, {
+  "productId" : 1,
+  "category" : "a",
+  "brand" : "b",
+  "prestige" : "d",
+  "price" : 10.00,
+  "quantity" : 1,
+  "freeShipping" : true
+}, {
+  "productId" : 1,
+  "category" : "a",
+  "brand" : "b",
+  "prestige" : "d",
+  "price" : 10.00,
+  "quantity" : 1,
+  "freeShipping" : true
+} ]
