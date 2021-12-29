@@ -4,15 +4,12 @@ import com.meli.w4.desafiospring.entity.Produto;
 import com.meli.w4.desafiospring.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/produtos")
@@ -29,4 +26,11 @@ public class ProdutoController {
                 .build().toUri();
         return ResponseEntity.created(uri).body(produtos);
     }
+
+    @GetMapping("/listar")
+    public ResponseEntity<List<Produto>> listaProdutos(@RequestParam Map<String,String> param){
+
+        return ResponseEntity.ok(produtoService.getProdutos(param));
+    }
+
 }

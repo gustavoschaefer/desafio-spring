@@ -24,8 +24,14 @@ public class ProdutoService {
 
     }
 
-    public List<Produto> getProdutos(Map<String,String> param) throws IOException{
+    public List<Produto> getProdutos(Map<String,String> param){
+        //Lista todos os produtos
+        List<Produto> produtos = null;
+        try{
+            produtos = produtoRepository.getProdutos(param);
+        }catch (IOException e){
 
-        return null;
+        }
+        return produtos;
     }
 }

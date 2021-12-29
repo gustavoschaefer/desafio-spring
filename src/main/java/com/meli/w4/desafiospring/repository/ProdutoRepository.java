@@ -1,5 +1,6 @@
 package com.meli.w4.desafiospring.repository;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.meli.w4.desafiospring.entity.Produto;
@@ -7,8 +8,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +33,7 @@ public class ProdutoRepository implements ProdutoInterface<Produto,Map<String,St
 
     @Override
     public List<Produto> getProdutos(Map<String, String> params) throws IOException {
-        return null;
+        produtos = objectMapper.readValue(new File(PATH), new TypeReference<ArrayList<Produto>>() {});
+        return produtos;
     }
 }
