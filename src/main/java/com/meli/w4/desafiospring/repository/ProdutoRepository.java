@@ -1,21 +1,19 @@
 package com.meli.w4.desafiospring.repository;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.meli.w4.desafiospring.entity.Produto;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Component
 public class ProdutoRepository implements ProdutoInterface<Produto,Map<String,String>>{
@@ -58,6 +56,17 @@ public class ProdutoRepository implements ProdutoInterface<Produto,Map<String,St
             if (entry.getKey().equals("prestige")) {
                 produtos = produtos.stream().filter(p -> p.getPrestige().equals(entry.getValue())).collect(Collectors.toList());
             }
+            if (entry.getKey().equals("order")) {
+				if (entry.getValue().equals("0")) {
+					Collections.sort(produtos, Produto.ordemAlfabeticaCrescente);
+				} else if (entry.getValue().equals("1")) {
+					Collections.sort(produtos, Produto.ordemAlfabeticaDecrescente);					
+				} else if (entry.getValue().equals("2")) {
+					Collections.sort(produtos, Produto.ordemCrescentePreco);										
+				} else if (entry.getValue().equals("3")) {
+					Collections.sort(produtos, Produto.ordemDecrescentePreco);
+				}
+			}
         }
         return produtos;
     }
