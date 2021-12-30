@@ -12,10 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PedidoService {
@@ -26,12 +23,14 @@ public class PedidoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    List<Produto> estoqueProdutos = new ArrayList<>();
+
     public Pedido newOrder(List<Produto> products)  {
 
         Map<String, String> params = new HashMap<>();
 
         try {
-            List<Produto> estoqueProdutos = produtoRepository.getProdutos(params);
+            estoqueProdutos = produtoRepository.getProdutos(params);
 
             Pedido pedido = new Pedido();
 
@@ -55,7 +54,13 @@ public class PedidoService {
                     produto.setPrice(optionalProduto.get().getPrice());
                     produto.setFreeShipping(optionalProduto.get().getFreeShipping());
                     produto.setPrestige(optionalProduto.get().getPrestige());
-
+                    for (Produto produtoEstoque : estoqueProdutos ) {
+                        int tempquantity;
+                        if(produtoEstoque.getProductId() == produto.getProductId()) {
+                            tempquantity = produtoEstoque.getQuantity() - produto.getQuantity();
+                            produtoEstoque.setQuantity(tempquantity);
+                        }
+                    }
                 } else {
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado");
                 }
@@ -71,4 +76,6 @@ public class PedidoService {
 
         return null;
     }
+
+
 }
