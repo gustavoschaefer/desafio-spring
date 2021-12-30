@@ -1,5 +1,6 @@
 package com.meli.w4.desafiospring.controller;
 
+import com.meli.w4.desafiospring.DTO.ProdutoDTO;
 import com.meli.w4.desafiospring.entity.Produto;
 import com.meli.w4.desafiospring.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +29,9 @@ public class ProdutoController {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<List<Produto>> listaProdutos(@RequestParam Map<String,String> param){
+    public ResponseEntity<List<ProdutoDTO>> listaProdutos(@RequestParam Map<String,String> param){
 
-        return ResponseEntity.ok(produtoService.getProdutos(param));
+        return ResponseEntity.ok(ProdutoDTO.converteDTO(produtoService.getProdutos(param)));
     }
 
 }

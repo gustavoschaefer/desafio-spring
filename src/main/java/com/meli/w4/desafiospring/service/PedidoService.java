@@ -52,7 +52,9 @@ public class PedidoService {
 
                     BigDecimal subTotal = optionalProduto.get().getPrice().multiply(new BigDecimal(produto.getQuantity()));
                     valorTotal = valorTotal.add(subTotal);
-
+                    produto.setPrice(optionalProduto.get().getPrice());
+                    produto.setFreeShipping(optionalProduto.get().getFreeShipping());
+                    produto.setPrestige(optionalProduto.get().getPrestige());
 
                 } else {
                     throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado");
@@ -61,6 +63,7 @@ public class PedidoService {
 
             pedido.setProducts(products);
             pedido.setTotal(valorTotal);
+            pedidoRepository.salvarPedidos(pedido);
             return pedido;
         } catch (IOException e) {
 

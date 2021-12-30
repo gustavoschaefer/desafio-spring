@@ -18,7 +18,8 @@ public class PedidoRepository {
     private final String PATH = "src/main/java/com/meli/w4/desafiospring/repository/pedidos.json";
 
     public void salvarPedidos(Pedido order) throws IOException{
-
+        Long id =  new Long(orders.size()+1);
+        order.setId(id);
         orders.add(order);
         objectMapper.writeValue(new File(PATH), orders);
     }

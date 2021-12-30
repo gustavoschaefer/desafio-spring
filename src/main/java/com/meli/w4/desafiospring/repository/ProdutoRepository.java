@@ -68,6 +68,7 @@ public class ProdutoRepository implements ProdutoInterface<Produto,Map<String,St
 				}
 			}
         }
+
         return produtos;
     }
 }
