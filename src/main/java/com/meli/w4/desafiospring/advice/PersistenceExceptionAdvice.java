@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.server.ResponseStatusException;
 
 @ControllerAdvice
 public class PersistenceExceptionAdvice {
@@ -27,6 +28,11 @@ public class PersistenceExceptionAdvice {
     protected ResponseEntity<Object> erroCalculo(ArithmeticException ex, WebRequest request) {
         //String bodyOfResponse = ex.getMessage();
         return ResponseEntity.badRequest().body("Operação inválida!");
+    }
+
+    @ExceptionHandler
+    protected ResponseEntity<Object> handleResponseStatus(ResponseStatusException ex, WebRequest request) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
 
 }

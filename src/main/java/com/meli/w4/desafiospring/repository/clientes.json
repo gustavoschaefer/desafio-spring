@@ -1,0 +1,50 @@
+[ {
+  "id" : 1,
+  "nome" : "Cliente3",
+  "cpf" : "123456789",
+  "email" : "email@dominio.com",
+  "telefone" : "1198745630",
+  "estado" : "SP"
+}, {
+  "id" : 2,
+  "nome" : "Cliente4",
+  "cpf" : "123456789",
+  "email" : "email@dominio.com",
+  "telefone" : "1198745630",
+  "estado" : "RS"
+}, {
+  "id" : 3,
+  "nome" : "Cliente5",
+  "cpf" : "123456789",
+  "email" : "email@dominio.com",
+  "telefone" : "1198745630",
+  "estado" : "RJ"
+}, {
+  "id" : 4,
+  "nome" : "Cliente1",
+  "cpf" : "123456789",
+  "email" : null,
+  "telefone" : "1198745630",
+  "estado" : "RJ"
+}, {
+  "id" : 5,
+  "nome" : "Cliente1",
+  "cpf" : "123456789",
+  "email" : null,
+  "telefone" : "1198745630",
+  "estado" : "RJ"
+}, {
+  "id" : 6,
+  "nome" : "Cliente1",
+  "cpf" : "123456788",
+  "email" : null,
+  "telefone" : "1198745630",
+  "estado" : "RJ"
+}, {
+  "id" : 7,
+  "nome" : "Cliente1",
+  "cpf" : "123456787",
+  "email" : "email@dominio.com",
+  "telefone" : "1198745630",
+  "estado" : "RJ"
+} ]
