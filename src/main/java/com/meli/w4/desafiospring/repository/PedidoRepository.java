@@ -13,15 +13,15 @@ import java.util.List;
 @Component
 public class PedidoRepository {
 
-    private List<Pedido> orders = new ArrayList<>();
+    private List<Pedido> pedidos = new ArrayList<>();
     private ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private final String PATH = "src/main/java/com/meli/w4/desafiospring/repository/pedidos.json";
 
-    public void salvarPedidos(Pedido order) throws IOException{
-        Long id =  new Long(orders.size()+1);
-        order.setId(id);
-        orders.add(order);
-        objectMapper.writeValue(new File(PATH), orders);
+    public void salvarPedidos(Pedido pedido) throws IOException{
+        Long id =  new Long(pedidos.size()+1);
+        pedido.setId(id);
+        pedidos.add(pedido);
+        objectMapper.writeValue(new File(PATH), pedidos);
     }
 
 }

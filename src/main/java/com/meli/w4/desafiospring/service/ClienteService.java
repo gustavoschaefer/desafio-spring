@@ -1,8 +1,6 @@
 package com.meli.w4.desafiospring.service;
 
 import com.meli.w4.desafiospring.entity.Cliente;
-import com.meli.w4.desafiospring.entity.Estado;
-import com.meli.w4.desafiospring.entity.Produto;
 import com.meli.w4.desafiospring.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,7 +24,7 @@ public class ClienteService {
         try {
             clienteRepository.setCliente(cliente);
         } catch (IOException e) {
-
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao salvar cliente.");
         }
     }
 
@@ -35,7 +33,7 @@ public class ClienteService {
         try{
             clientes = clienteRepository.getClientes(param);
         }catch (IOException e){
-
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao buscar lista de clientes.");
         }
         return clientes;
     }
@@ -54,8 +52,10 @@ public class ClienteService {
 
         try {
             clientes = clienteRepository.getClientes(param);
+        } catch (NullPointerException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lista vazia.");
         } catch (IOException e) {
-
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao buscar lista de clientes.");
         }
         for (Cliente cli : clientes) {
             if (cliente.getCpf().equals(cli.getCpf())) {

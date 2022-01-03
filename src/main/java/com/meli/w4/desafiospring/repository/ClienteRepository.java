@@ -3,8 +3,8 @@ package com.meli.w4.desafiospring.repository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.meli.w4.desafiospring.entity.Cliente;
-import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -21,21 +21,25 @@ public class ClienteRepository {
     private ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private final String PATH = "src/main/java/com/meli/w4/desafiospring/repository/clientes.json";
 
-    public void setCliente(@NonNull Cliente cliente) throws IOException {
-        Long id =  new Long(clientes.size()+1);
+    public void setCliente(Cliente cliente) throws IOException {
+        Long id = new Long(clientes.size() + 1);
         cliente.setId(id);
         clientes.add(cliente);
         objectMapper.writeValue(new File(PATH), clientes);
     }
 
-    public List<Cliente> getClientes(Map<String,String> param) throws IOException {
-        clientes = objectMapper.readValue(new File(PATH), new TypeReference<ArrayList<Cliente>>() {});
-        for (Map.Entry<String,String> entry : param.entrySet()) {
+    public List<Cliente> getClientes(Map<String, String> param) throws NullPointerException, IOException {
+        try {
+            clientes = objectMapper.readValue(new File(PATH), new TypeReference<ArrayList<Cliente>>() {
+            });
+        } catch (MismatchedInputException e) {
+        }
+        for (Map.Entry<String, String> entry : param.entrySet()) {
             if (entry.getKey().equals("estado")) {
-                clientes = clientes.stream().filter(c -> c.getEstado().toString().equals(entry.getValue())).collect(Collectors.toList());
+                this.clientes = this.clientes.stream().filter(c -> c.getEstado().toString().equals(entry.getValue())).collect(Collectors.toList());
             }
         }
-        return clientes;
+        return this.clientes;
     }
 
 }

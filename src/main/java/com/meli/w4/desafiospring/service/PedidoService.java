@@ -7,7 +7,6 @@ import com.meli.w4.desafiospring.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
@@ -25,7 +24,7 @@ public class PedidoService {
 
     List<Produto> estoqueProdutos = new ArrayList<>();
 
-    public Pedido newOrder(List<Produto> products)  {
+    public Pedido novoPedido(List<Produto> produtos) {
 
         Map<String, String> params = new HashMap<>();
 
@@ -36,7 +35,7 @@ public class PedidoService {
 
             BigDecimal valorTotal = BigDecimal.ZERO;
 
-            for (Produto produto : products) {
+            for (Produto produto : produtos) {
 
                 Optional<Produto> optionalProduto = estoqueProdutos.stream()
                         .filter(p -> p.getProductId() == produto.getProductId()).findFirst();
@@ -52,6 +51,7 @@ public class PedidoService {
                     BigDecimal subTotal = optionalProduto.get().getPrice().multiply(new BigDecimal(produto.getQuantity()));
                     valorTotal = valorTotal.add(subTotal);
                     produto.setPrice(optionalProduto.get().getPrice());
+                    produto.setCategory(optionalProduto.get().getCategory());
                     produto.setFreeShipping(optionalProduto.get().getFreeShipping());
                     produto.setPrestige(optionalProduto.get().getPrestige());
                     for (Produto produtoEstoque : estoqueProdutos ) {
@@ -62,20 +62,18 @@ public class PedidoService {
                         }
                     }
                 } else {
-                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado");
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado.");
                 }
             }
 
-            pedido.setProducts(products);
+            pedido.setProdutos(produtos);
             pedido.setTotal(valorTotal);
             pedidoRepository.salvarPedidos(pedido);
             return pedido;
         } catch (IOException e) {
-
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao buscar produtos do estoque.");
         }
 
-        return null;
     }
-
 
 }

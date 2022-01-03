@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,8 +32,5 @@ public class ProdutoDTO {
     public static List<ProdutoDTO> converteDTO(List<Produto> produtos){
         return produtos.stream().map(u -> converteDTO(u)).collect(Collectors.toList());
     }
-
-
-
 
 }

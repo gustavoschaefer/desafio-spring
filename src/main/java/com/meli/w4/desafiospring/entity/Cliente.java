@@ -11,5 +11,4 @@ public class Cliente {
     String nome, cpf, email, telefone;
     Estado estado;
 
-
 }

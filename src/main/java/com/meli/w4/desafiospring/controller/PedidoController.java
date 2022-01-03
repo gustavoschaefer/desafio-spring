@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -27,6 +26,6 @@ public class PedidoController {
         URI uri = uriComponentsBuilder
                 .path("/pedido/listapedidos")
                 .build().toUri();
-        return ResponseEntity.created(uri).body(pedidoService.newOrder(produtos));
+        return ResponseEntity.created(uri).body(pedidoService.novoPedido(produtos));
     }
 }

@@ -1,6 +1,5 @@
 package com.meli.w4.desafiospring.controller;
 
-
 import com.meli.w4.desafiospring.entity.Carrinho;
 import com.meli.w4.desafiospring.entity.Produto;
 import com.meli.w4.desafiospring.service.CarrinhoService;
@@ -19,11 +18,16 @@ public class CarrinhoController {
     CarrinhoService carrinhoService;
 
     @PostMapping("/incluir")
-    public ResponseEntity<Carrinho> incluirNoCarrinho(@RequestBody List<Produto> produtos, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<Carrinho> incluirNoCarrinho(@RequestBody List<Produto> produtos, UriComponentsBuilder uriComponentsBuilder) {
         URI uri = uriComponentsBuilder
                 .path("/carrinho/mostrar")
                 .build().toUri();
         return ResponseEntity.created(uri).body(carrinhoService.incluiPedidoCarrinho(produtos));
+    }
+
+    @GetMapping("/mostrar")
+    public ResponseEntity<Carrinho> mostraCarrinho() {
+        return ResponseEntity.ok(carrinhoService.getCarrinho());
     }
 
 }

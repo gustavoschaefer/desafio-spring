@@ -3,7 +3,9 @@ package com.meli.w4.desafiospring.service;
 import com.meli.w4.desafiospring.entity.Produto;
 import com.meli.w4.desafiospring.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +21,7 @@ public class ProdutoService {
         try {
             produtoRepository.salvarProdutos(produtos);
         } catch (IOException e){
-            System.out.println("deu ruim");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao salvar lista de produtos.");
         }
 
     }
@@ -30,7 +32,7 @@ public class ProdutoService {
         try{
             produtos = produtoRepository.getProdutos(param);
         }catch (IOException e){
-
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao buscar lista de produtos.");
         }
         return produtos;
     }

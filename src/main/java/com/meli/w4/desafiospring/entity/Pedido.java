@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.List;
 
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -15,7 +14,7 @@ import java.util.List;
 public class Pedido {
 
     private Long id;
-    List<Produto> products;
+    List<Produto> produtos;
     private BigDecimal total;
 
 }
