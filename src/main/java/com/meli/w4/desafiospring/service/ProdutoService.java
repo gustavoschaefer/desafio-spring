@@ -14,16 +14,19 @@ import java.util.Map;
 @Service
 public class ProdutoService {
 
-    @Autowired
     private ProdutoRepository produtoRepository;
 
-    public void setProdutos(List<Produto> produtos) {
+    public ProdutoService(ProdutoRepository produtoRepository) {
+        this.produtoRepository = produtoRepository;
+    }
+
+    public List<Produto> setProdutos(List<Produto> produtos) {
         try {
             produtoRepository.salvarProdutos(produtos);
         } catch (IOException e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Erro ao salvar lista de produtos.");
         }
-
+        return produtos;
     }
 
     public List<Produto> getProdutos(Map<String,String> param){

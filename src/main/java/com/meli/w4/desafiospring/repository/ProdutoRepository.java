@@ -23,11 +23,10 @@ public class ProdutoRepository implements ProdutoInterface<Produto,Map<String,St
 
 
     @Override
-    public void salvarProdutos(List<Produto> listaProdutos) throws IOException {
-
+    public List<Produto> salvarProdutos(List<Produto> listaProdutos) throws IOException {
         produtos.addAll(listaProdutos);
-
         objectMapper.writeValue(new File(PATH),produtos);
+        return listaProdutos;
     }
 
     @Override

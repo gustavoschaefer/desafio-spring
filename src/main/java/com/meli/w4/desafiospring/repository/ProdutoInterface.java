@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface ProdutoInterface <T,U>{
 
-    void salvarProdutos(List<T> t) throws IOException;
+    List<T>  salvarProdutos(List<T> t) throws IOException;
     List<T> getProdutos(U params) throws IOException;
 }
